@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>URL Admin</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟢</text></svg>">
+  <link href="static/bootstrap.min.css" rel="stylesheet"/>
+  <link href="static/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!--link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/-->
+  <!--link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/-->
+  <link href="static/custom.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container-lg">
+  <nav class="navbar navbar-expand-lg rounded mt-3 mb-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">URL Admin</a>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn nav-link" id="themeSwitcher">
+            <i class="bi bi-sun-fill"></i>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="btn nav-link" id="containerSwitcher">
+            <i class="bi bi-reception-1"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div id="alertPlaceholder"></div>
+    <div class="p-4 rounded mb-3">
+      <div class="row g-2">
+        <div class="col-12 border p-3">
+          <h4>Парсинг URL</h4>
+          <div class="input-group has-validation mb-3">
+            <input type="text" class="form-control" id="urlInput" placeholder="Введите URL">
+            <input type="checkbox" class="btn-check" id="urlSafeToggle" checked autocomplete="off">
+            <label class="btn btn-outline-secondary" for="urlSafeToggle">url-safe</label>
+            <button class="btn btn-outline-secondary" id="copyUrlButton" title="Скопировать">
+              <i id="copyIcon" class="bi bi-copy"></i></button>
+            <button class="btn btn-outline-secondary" id="parseUrlButton"><i class="bi bi-arrow-down-circle"></i>
+            </button>
+            <div class="invalid-feedback" id="parseError"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 mt-3">
+        <div class="col-8 border p-3">
+          <h4>Параметры ссылки</h4>
+          <form id="paramsForm" class="needs-validation" novalidate>
+            <div id="paramsContainer">
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="utm_source" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="utm_medium" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="utm_campaign" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="utm_content" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="utm_term" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="partner_code" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+              <div class="row mb-2 param-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Key" name="key[]" value="ref_code" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Value" name="value[]" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-param">x</button>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" id="addParamButton">Добавить поле</button>
+            <button type="submit" class="btn btn-primary" id="generateButton">Сгенерировать</button>
+          </form>
+        </div>
+
+        <div class="col-4 border p-3">
+          <div class="mt-3">
+            <label id="base64Label">Base64url Encode:</label>
+            <pre id="base64Encoded" class="border p-2"></pre>
+          </div>
+          <div>
+            <label>HTTP Build Query:</label>
+            <pre id="httpQuery" class="border p-2"></pre>
+          </div>
+          <div>
+            <label>Go Map:</label>
+            <pre id="goMap" class="border p-2"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 mt-3">
+        <div class="col-12 border p-3">
+          <h4>Парсинг RefCode (base62)</h4>
+          <div class="input-group has-validation mb-3">
+            <input type="text" class="form-control" id="telegramId" placeholder="ID телеграма" pattern="[0-9]*" inputmode="numeric">
+            <button class="btn btn-outline-secondary" id="toRcButton"><i class="bi bi-arrow-right"></i></button>
+            <button class="btn btn-outline-secondary" id="toIdButton"><i class="bi bi-arrow-left"></i></button>
+            <input type="text" class="form-control" id="referralCode" placeholder="RC">
+            <div class="invalid-feedback" id="conversionError"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 mt-3">
+        <div class="col-12 border p-3">
+          <h4>URL в Markdown</h4>
+          <div class="row">
+            <div class="col-6">
+              <div class="input-group mb-3">
+                <span class="input-group-text">Текст</span>
+                <input type="text" class="form-control" id="markdownText" placeholder="Текст ссылки">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Адрес</span>
+                <input type="text" class="form-control" id="markdownUrl" placeholder="URL">
+              </div>
+              <button class="btn btn-outline-secondary w-100" id="convertMarkdownButton">Конвертировать</button>
+            </div>
+            <div class="col-6">
+              <div class="input-group">
+                <input type="text" class="form-control" id="markdownResult" placeholder="Результат" disabled>
+                <button class="btn btn-outline-secondary" id="copyMarkdownButton" title="Скопировать">
+                  <i id="copyMarkdownIcon" class="bi bi-copy"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="objectDebugModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Отладка объекта</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <pre><code id="objectDebugCode" class="language-json"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="static/bootstrap.bundle.min.js"></script>
+<!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script-->
+<script src="static/base-62.js"></script>
+<script src="static/custom.js"></script>
+</body>
+</html>
