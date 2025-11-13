@@ -258,7 +258,6 @@ class ParamsManager {
       utm_campaign: 'UCP',
       utm_content: 'UC',
       utm_term: 'UT',
-      partner_code: 'PC',
       ref_code: 'RC',
     };
 
