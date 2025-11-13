@@ -62,6 +62,8 @@ class Base64Util {
 }
 
 class ParamsManager {
+  static DEFAULT_URL = 'https://t.me/giftfest_bot/app?startapp';
+
   constructor() {
     this.urlInput = document.getElementById('urlInput');
     this.copyButton = document.getElementById('copyUrlButton');
@@ -83,6 +85,9 @@ class ParamsManager {
     const savedBaseUrl = localStorage.getItem('baseUrl');
     if (savedBaseUrl) {
       this.urlInput.value = savedBaseUrl;
+    } else if (!this.urlInput.value.trim()) {
+      // Если значение пустое, устанавливаем значение по умолчанию
+      this.urlInput.value = ParamsManager.DEFAULT_URL;
     }
     
     this.copyButton.addEventListener('click', () => this.copyURL());
